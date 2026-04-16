@@ -1,0 +1,355 @@
+<div class="grain-overlay"></div>
+
+<div class="app-container">
+  <!-- Massive Brand Banner Section -->
+  <div class="w-full overflow-hidden bg-black flex items-center justify-center h-auto min-h-[12vh] md:min-h-[20vh] py-6 md:py-10" style="height: 261.406px; line-height: 22px;">
+    <h1 class="font-black uppercase tracking-tighter whitespace-nowrap text-center select-none opacity-100 text-[16vw] md:text-[18vw] leading-none" style="font-size: 216.4px;">
+      [AZFrequency]
+    </h1>
+  </div>
+
+  <main class="block">
+    <!-- Hero Section -->
+    <section class="hero-section h-[40vh] md:h-[55vh] min-h-[300px]">
+      <div class="hero-visual frequency-glow"></div>
+
+      <!-- Center Logo -->
+      <div class="hero-logo-container">
+        <img src="https://477pehxyou.ucarecd.net/750d23ba-6b5b-43ef-9f79-c1b08b072b65/7.png" 
+             alt="AZFrequency Logo" 
+             class="hero-logo"
+             referrerpolicy="no-referrer">
+      </div>
+      
+      <div class="hero-title flex items-center h-full" style="height: 478.391px; margin-top: 15px; padding-bottom: 0px;">
+        <div class="px-6 md:px-16 w-full flex justify-between items-center">
+          <div>
+            <p class="hero-subtitle">©2026 THE SAVEDPIN STUDIOS</p>
+            <h1 class="hero-title-text leading-[0.85] font-black uppercase tracking-tighter text-[32px] md:text-[46px]" style="font-size: 47px;">
+              FRQ: 44.1KHZ<br>
+              CNT: 00088<br>
+              {{ currentTime() }}
+            </h1>
+          </div>
+
+          <div class="hero-cta relative">
+            <button class="cta-button" (click)="scrollToJoin()">
+              Join the Frequency
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Success Modal -->
+  @if (showSuccessModal()) {
+    <div class="fixed inset-0 z-[110] flex items-center justify-center p-6">
+      <div class="absolute inset-0 bg-black/90 backdrop-blur-md" 
+           (click)="showSuccessModal.set(false)"
+           (keydown.enter)="showSuccessModal.set(false)"
+           tabindex="0"
+           role="button"
+           aria-label="Close success modal"></div>
+      
+      <div class="relative w-full max-w-lg bg-black border border-white/10 p-12 text-center space-y-8">
+        <div class="w-20 h-20 border-2 border-agency-cyan rounded-full mx-auto flex items-center justify-center animate-pulse">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00FFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        
+        <div class="space-y-4">
+          <h3 class="text-2xl font-bold tracking-tighter">YOU ARE HALFWAY THERE.</h3>
+          <p class="text-sm opacity-50 leading-relaxed uppercase tracking-widest">
+            Your frequency has been synchronized with our database.<br>
+            We will review your metadata and reach out via email.
+          </p>
+        </div>
+
+        <button (click)="showSuccessModal.set(false)" class="bg-white/10 hover:bg-white/20 text-micro tracking-[0.2em] px-8 py-4 transition-colors">
+          DISMISS
+        </button>
+      </div>
+    </div>
+  }
+</main>
+
+  <!-- Manifesto Section -->
+  <section class="px-4 md:px-10 bg-black manifesto-trigger overflow-hidden" style="height: 982.500px; padding-top: 121px; padding-bottom: 40px;">
+    <div class="w-full max-w-none text-center">
+      <p class="manifesto-text mx-auto text-[24px] md:text-[36px] font-medium leading-[1.6] uppercase tracking-tight px-4 md:px-0" style="max-width: 1851px; text-align: justify; margin-bottom: 0px; padding-top: 0px; padding-bottom: 0px;">
+        @for (word of manifestoWords(); track $index) {
+          <span class="word">{{ word }} </span>
+        }
+      </p>
+    </div>
+  </section>
+
+  <!-- Role Selection Section (Replacing Gallery) -->
+  <section id="join-section" class="px-10 bg-black" style="padding-top: 94px; padding-bottom: 84px; margin-top: 6px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;">
+    <div class="mb-20">
+      <span class="text-micro opacity-50">02 / Opportunities</span>
+      <h2 class="text-4xl md:text-6xl mt-4 uppercase font-black tracking-tighter">Join the Frequency</h2>
+      <p class="text-sm md:text-base opacity-40 mt-4 uppercase tracking-[0.25em] font-light">Strategic Appointments. Project-Commission Protocol Active.</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-0">
+      @for (role of roles; track role.id) {
+        <div 
+          (click)="openApplication(role)"
+          (keydown.enter)="openApplication(role)"
+          tabindex="0"
+          class="role-box-main p-12 hover:bg-white/5 transition-all duration-500 group cursor-pointer relative overflow-hidden focus:outline-none focus:bg-white/5"
+        >
+          <!-- Hover Glow -->
+          <div class="absolute inset-0 bg-gradient-to-br from-agency-cyan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          
+          <span class="text-7xl font-black opacity-5 group-hover:opacity-20 group-hover:text-agency-cyan transition-all duration-500">
+            {{ role.id }}
+          </span>
+          <h3 class="text-2xl mt-8 mb-4 uppercase font-black tracking-tight group-hover:text-agency-cyan transition-colors">{{ role.shortTitle }}</h3>
+          <p class="text-sm font-light opacity-50 leading-relaxed group-hover:opacity-80 transition-opacity">
+            {{ role.description }}
+          </p>
+          
+          <div class="mt-12 flex items-center gap-3 transition-all duration-500">
+            <button class="bg-agency-cyan text-black px-6 py-3 text-[10px] font-black uppercase tracking-widest hover:bg-white transition-colors">
+              Apply Now
+            </button>
+            <div class="w-10 h-[1px] bg-agency-cyan/30"></div>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Application Modal -->
+  @if (isModalOpen()) {
+    <div class="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6">
+      <!-- Backdrop -->
+      <div 
+        (click)="closeModal()"
+        (keydown.enter)="closeModal()"
+        tabindex="-1"
+        class="absolute inset-0 bg-black/90 backdrop-blur-xl transition-opacity duration-500"
+      ></div>
+      
+      <!-- Modal Panel -->
+      <div class="modal-panel relative w-full h-full flex flex-col bg-black border-0 backdrop-blur-3xl shadow-none opacity-0 scale-100 overflow-hidden">
+        <!-- Close Button -->
+        <button 
+          (click)="closeModal()"
+          class="absolute top-10 right-10 text-white/40 hover:text-white transition-colors z-20 p-4"
+          aria-label="Close modal"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 h-full overflow-y-auto lg:overflow-hidden">
+          <!-- Left Side: Info (Static on desktop) -->
+          <div class="p-10 md:p-20 bg-black lg:overflow-y-auto custom-scrollbar-hidden flex flex-col justify-center">
+            <div class="max-w-3xl mx-auto w-full">
+              <div class="mb-10">
+                <span class="text-micro text-agency-cyan mb-4 block">Application Protocol</span>
+                <h2 class="font-black uppercase tracking-tighter leading-[0.85] break-words" style="font-size: 67px;">{{ selectedRole()?.title }}</h2>
+                <p class="opacity-40 mt-6 uppercase tracking-[0.3em] text-sm md:text-lg lg:text-xl leading-snug">Project Commission Based</p>
+              </div>
+
+              <div class="space-y-10">
+                <div>
+                  <h4 class="text-micro opacity-30 mb-4">// Key Responsibilities</h4>
+                  <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+                    @for (item of selectedRole()?.responsibilities; track item) {
+                      <li class="opacity-70 flex gap-4 text-sm md:text-base">
+                        <span class="text-agency-cyan">—</span>
+                        {{ item }}
+                      </li>
+                    }
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 class="text-micro opacity-30 mb-4">// Experience We're Looking For</h4>
+                  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+                    @for (item of selectedRole()?.experience; track item) {
+                      <div class="uppercase tracking-widest p-4 bg-white/[0.03] text-[10px] md:text-xs">
+                        {{ item }}
+                      </div>
+                    }
+                  </div>
+                </div>
+
+                <p class="text-xs md:text-sm italic opacity-40 border-l-2 border-agency-cyan/30 pl-6 leading-relaxed max-w-2xl">
+                  {{ selectedRole()?.note }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Side: Form (Scrollable on desktop) -->
+          <div class="p-10 md:p-20 lg:overflow-y-auto custom-scrollbar flex flex-col justify-start">
+            <div class="max-w-xl mx-auto w-full py-20">
+              <form (submit)="submitApplication($event)" class="space-y-10">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label for="first-name" class="text-micro opacity-50">First Name</label>
+                  <input id="first-name" name="first_name" type="text" [value]="firstName()" (input)="onInputChange($event, 'first')" required class="w-full bg-white/5 p-4 text-sm outline-none focus:bg-white/10 transition-colors">
+                </div>
+                <div class="space-y-2">
+                  <label for="last-name" class="text-micro opacity-50">Last Name</label>
+                  <input id="last-name" name="last_name" type="text" [value]="lastName()" (input)="onInputChange($event, 'last')" required class="w-full bg-white/5 p-4 text-sm outline-none focus:bg-white/10 transition-colors">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label for="email" class="text-micro opacity-50">Email Address</label>
+                  <input id="email" name="email" type="email" [value]="email()" (input)="onInputChange($event, 'email')" required class="w-full bg-white/5 p-4 text-sm outline-none focus:bg-white/10 transition-colors">
+                </div>
+                <div class="space-y-2">
+                  <label for="phone" class="text-micro opacity-50">Phone Number</label>
+                  <div class="flex">
+                    <span class="bg-white/10 p-4 text-sm opacity-50">+880</span>
+                    <input id="phone" name="phone" type="tel" [value]="phone()" (input)="onInputChange($event, 'phone')" required class="w-full bg-white/5 p-4 text-sm outline-none focus:bg-white/10 transition-colors">
+                  </div>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <label for="instagram" class="text-micro opacity-50">Instagram Username</label>
+                <input id="instagram" name="instagram" type="text" [value]="instagram()" (input)="onInputChange($event, 'insta')" placeholder="@username" class="w-full bg-white/5 p-4 text-sm outline-none focus:bg-white/10 transition-colors">
+              </div>
+
+              <div class="space-y-2">
+                <label for="linkedin" class="text-micro opacity-50">LinkedIn Profile Link</label>
+                <input id="linkedin" name="linkedin" type="url" [value]="linkedin()" (input)="onInputChange($event, 'linkedin')" placeholder="https://linkedin.com/in/username" class="w-full bg-white/5 p-4 text-sm outline-none focus:bg-white/10 transition-colors">
+              </div>
+
+              <div class="space-y-6">
+                <span class="text-micro opacity-50 block">Experience Check (Mark all that apply)</span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  @for (item of selectedRole()?.experience; track item) {
+                    <label class="flex items-center gap-4 cursor-pointer group p-4 bg-white/[0.02] hover:bg-white/[0.05] transition-colors">
+                      <input type="checkbox" [name]="'exp_' + item" [checked]="isExperienceChecked(item)" (change)="toggleExperience(item)" class="hidden peer">
+                      <div class="w-5 h-5 bg-white/5 flex items-center justify-center peer-checked:bg-agency-cyan transition-all shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="hidden peer-checked:block"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      </div>
+                      <span class="opacity-50 group-hover:opacity-100 transition-opacity text-xs uppercase tracking-widest leading-none">{{ item }}</span>
+                    </label>
+                  }
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <label for="note" class="text-micro opacity-50">Any Note / Additional Info</label>
+                <textarea id="note" name="additional_info" rows="3" [value]="additionalInfo()" (input)="onInputChange($event, 'note')" class="w-full bg-white/5 p-4 text-sm outline-none focus:bg-white/10 transition-colors resize-none"></textarea>
+              </div>
+
+              <!-- CV Upload -->
+              <div class="space-y-2">
+                <span class="text-micro opacity-50">Drop your CV</span>
+                <div class="relative bg-white/[0.02] p-6 text-center group hover:bg-white/[0.05] border border-white/5 hover:border-agency-cyan/30 transition-all cursor-pointer" 
+                     [class.bg-agency-cyan/10]="cvStatus() === 'success'"
+                     [class.border-agency-cyan/50]="cvStatus() === 'success'"
+                     (click)="cvInput.click()" (keydown.enter)="cvInput.click()" tabindex="0">
+                  <input #cvInput type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" (click)="$event.stopPropagation()" (change)="onFileChange($event, 'cv')" accept=".pdf,.doc,.docx">
+                  <div class="flex items-center justify-center gap-4 relative z-0">
+                    <div [class.animate-pulse]="cvStatus() === 'uploading'">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" 
+                           [class.text-agency-cyan]="cvStatus() !== 'idle'"
+                           class="opacity-20 group-hover:opacity-100 transition-all"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    </div>
+                    <div class="text-left">
+                      @if (cvStatus() === 'idle') {
+                        <span class="text-xs opacity-40 group-hover:opacity-100 transition-opacity block">Drop your CV or click to upload</span>
+                        <span class="text-[9px] opacity-30 uppercase tracking-widest">PDF, DOC, DOCX (Max 10MB)</span>
+                      } @else if (cvStatus() === 'uploading') {
+                        <span class="text-xs text-agency-cyan animate-pulse">PROCESSING UPLOAD...</span>
+                      } @else if (cvStatus() === 'success') {
+                        <span class="text-xs text-agency-cyan font-bold">FREQUENCY SECURED</span>
+                        <span class="text-[9px] opacity-50 block truncate max-w-[200px]">{{ cvName() }}</span>
+                      } @else if (cvStatus() === 'error') {
+                        <span class="text-xs text-red-500">UPLOAD FAILED</span>
+                        <span class="text-[9px] opacity-30">TRY AGAIN</span>
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Role Specific Portfolio/Experience Section -->
+              @if (selectedRole()?.id === '01') {
+                <div class="space-y-2">
+                  <label for="events-worked" class="text-micro opacity-50 uppercase tracking-widest text-[9px]">Name of Events you have worked with so far (with years)</label>
+                  <textarea id="events-worked" name="events_worked" rows="4" [value]="eventsWorked()" (input)="onInputChange($event, 'events')" class="w-full bg-white/5 p-4 text-sm outline-none focus:bg-white/10 transition-colors resize-none placeholder:opacity-20" placeholder="Example: XYZ Concert (2023), Dhaka Fashion Week (2022)..."></textarea>
+                </div>
+              } @else if (selectedRole()?.id === '03') {
+                <!-- Portfolio Upload (Visual Artist Only) -->
+                <div class="space-y-2">
+                  <span class="text-micro opacity-50">Upload Portfolio</span>
+                  <div class="relative bg-white/[0.02] p-6 text-center group hover:bg-white/[0.05] border border-white/5 hover:border-agency-cyan/30 transition-all cursor-pointer" 
+                       [class.bg-agency-cyan/10]="portfolioStatus() === 'success'"
+                       [class.border-agency-cyan/50]="portfolioStatus() === 'success'"
+                       (click)="fileInput.click()" (keydown.enter)="fileInput.click()" tabindex="0">
+                    <input #fileInput type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" (click)="$event.stopPropagation()" (change)="onFileChange($event, 'portfolio')" accept=".pdf,.ppt,.pptx,.zip,image/*">
+                    <div class="flex items-center justify-center gap-4 relative z-0">
+                      <div [class.animate-pulse]="portfolioStatus() === 'uploading'">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" 
+                             [class.text-agency-cyan]="portfolioStatus() !== 'idle'"
+                             class="opacity-20 group-hover:opacity-100 transition-all"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                      </div>
+                      <div class="text-left">
+                        @if (portfolioStatus() === 'idle') {
+                          <span class="text-xs opacity-40 group-hover:opacity-100 transition-opacity block">Drop your portfolio or click to upload</span>
+                          <span class="text-[9px] opacity-30 uppercase tracking-widest">PDF, PPT, ZIP (Max 25MB)</span>
+                        } @else if (portfolioStatus() === 'uploading') {
+                          <span class="text-xs text-agency-cyan animate-pulse">PROCESSING UPLOAD...</span>
+                        } @else if (portfolioStatus() === 'success') {
+                          <span class="text-xs text-agency-cyan font-bold">PORTFOLIO SYNCED</span>
+                          <span class="text-[9px] opacity-50 block truncate max-w-[200px]">{{ portfolioName() }}</span>
+                        } @else if (portfolioStatus() === 'error') {
+                          <span class="text-xs text-red-500">UPLOAD FAILED</span>
+                          <span class="text-[9px] opacity-30">TRY AGAIN</span>
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+
+              <div class="flex items-start gap-3 group cursor-pointer">
+                <input type="checkbox" required name="terms_agreed" id="terms" class="mt-1">
+                <label for="terms" class="text-[10px] opacity-40 group-hover:opacity-100 transition-opacity uppercase tracking-widest leading-relaxed">
+                  I agree to the terms and conditions and understand that this is a project commission based appointment.
+                </label>
+              </div>
+
+              <button 
+                type="submit"
+                [disabled]="isSubmitting() || cvStatus() === 'uploading' || portfolioStatus() === 'uploading'"
+                class="w-full bg-white text-black font-black py-5 uppercase tracking-[0.2em] hover:bg-agency-cyan transition-all duration-500 shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(0,229,255,0.3)] disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {{ isSubmitting() ? 'Submitting' : 'Submit Application' }}
+              </button>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Footer -->
+  <footer class="flex-col md:flex-row h-auto md:h-[60px] py-6 md:py-0 gap-6 md:gap-0" style="padding-top: 11px;">
+    <div class="footer-meta flex-wrap justify-center md:justify-start">
+      <div><span>IG</span> INSTAGRAM</div>
+      <div><span>FB</span> FACEBOOK</div>
+      <div><span>LI</span> LINKEDIN</div>
+      <div class="hidden sm:block"><span>EM</span> CONTACT@AZFRQ.IO</div>
+    </div>
+
+    <div class="subscribe w-full md:w-auto">
+      <input type="text" placeholder="JOIN THE FREQUENCY" class="flex-grow md:flex-none">
+      <span class="text-[10px] cursor-pointer ml-2">→</span>
+    </div>
+  </footer>
+</div>
+
+<router-outlet />
